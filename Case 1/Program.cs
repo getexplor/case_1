@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace Case_1
 {
     class Program
     {
-        static int N = 4;
         const int MaxLength = 100;
 
         static void Main(string[] args)
@@ -12,23 +12,34 @@ namespace Case_1
 
             string pesan = "maafAkuenggak";
 
-            if (pesan.Length < MaxLength)
+            ValidasiPesan(pesan);
+
+            Console.ReadLine();
+        }
+
+        public static void ValidasiPesan(string pesan)
+        {
+            Regex r = new Regex("^[a-zA-Z ]+$");
+            if (r.IsMatch(pesan) && pesan.Length <= MaxLength)
             {
                 pesan_rahasia(pesan);
             }
-            else
+            else if (pesan.Length > MaxLength)
             {
                 Console.WriteLine("Pesan terlalu panjang");
             }
-            
-            Console.ReadLine();
+            else
+            {
+                Console.WriteLine("Pesan harus huruf tidak boleh mengandung angka dan simbol");
+            }
+                
         }
 
         static void pesan_rahasia(string pesan)
         {
             int x = 0;
             int sisa;
-
+            int N = pesan.Length / 3;
             char[,] indexChar = new char[N, N];
 
             sisa = indexChar.Length - pesan.Length;
